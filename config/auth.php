@@ -17,7 +17,10 @@ return [
         'guard' => 'web',
         'passwords' => 'users',
     ],
-
+    'blogUser' => [
+        'driver' => 'eloquent',
+        'provider' => App\Models\BlogUser::class, 
+    ],
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -38,13 +41,16 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'blog_users',
         ],
-
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            'provider' => 'blog_users',
             'hash' => false,
+        ],
+        'blogUser' => [
+            'driver' => 'session',
+            'provider' => 'blog_users',
         ],
     ],
 
@@ -69,6 +75,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+        'blog_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\BlogUser::class, // Use the BlogUser model for authentication
         ],
 
         // 'users' => [
@@ -97,6 +107,10 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
+        ],
+        'blog_users' =>[
+            'driver' => 'eloquent',
+            'model' => App\Models\BlogUser::class,
         ],
     ],
 
