@@ -39,6 +39,11 @@ return [
             'channels' => ['daily'],
             'ignore_exceptions' => false,
         ],
+        'blogUsers' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/blogUsers.log'),
+            'level' => 'debug',
+        ],
 
         'single' => [
             'driver' => 'single',

@@ -15,13 +15,13 @@
                         <div class="">
                             <label for="username1" class="">Username</label>
                         </div>
-                        <input type="text" class="py-2 w-100 border-0" id="username1" name="username1" placeholder="username" required>
+                        <input type="text" class="py-2 w-100 border-0" id="username1" name="username" placeholder="username" required>
                     </div>
                     <div class="mb-2">
                         <div class="">
                             <label for="password1">Password</label>
                         </div>
-                        <input type="password" class="py-2 w-100 border-0"  id="password1" name="password1" placeholder="Enter Password" required>
+                        <input type="password" class="py-2 w-100 border-0"  id="password1" name="password" placeholder="Enter Password" required>
                     </div>
                     <button id="loginButton" class="w-100 border-0 bg-custom5 fs-3 p-2 mt-3 text-white">Login</button>
                 </form>
@@ -38,7 +38,7 @@
         <div class="modal-content bg-registration">
             <div class="modal-header">
                 <h5 class="modal-title text-center">Registration Form</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body" id="myModalBody">
                 <div id="">

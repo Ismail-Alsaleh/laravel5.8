@@ -39,11 +39,12 @@ Route::name('blogUser.')->group(function(){
             return view('blogUser.blog_about_us');
         })->name('about_us');
         //contact us
+
+    });
+    Route::middleware('auth:blogUser')->group(function(){
         Route::get('/Blog/contactUs', function(){
             return view('blogUser.blog_contact_us');
         })->name('contact_us');
-    });
-    Route::middleware('auth:blogUser')->group(function(){
         //add post
         Route::post('/post_editor/addPost',[PostController::class, 'addPost'])->name('addPost');
         //delete post

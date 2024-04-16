@@ -7,7 +7,6 @@
         <link rel="stylesheet" href="{{asset('css/fontawesome.min.css')}}">
         <link rel="stylesheet" href="{{asset('css/main.css')}}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
         <style>

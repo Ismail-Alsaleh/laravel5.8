@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check()) {
             if($guard === 'blogUser'){
-                return redirect()->route('blogUser.blog');
+                return redirect()->route('blogUser.contact_us');
             }
             return redirect('/home');
         }
