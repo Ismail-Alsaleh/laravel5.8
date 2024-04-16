@@ -42,6 +42,7 @@ Route::name('blogUser.')->group(function(){
 
     });
     Route::middleware('auth:blogUser')->group(function(){
+        Route::get('/Blog/notify', [BlogUserController::class, 'notif'])->name('notify');
         Route::get('/Blog/contactUs', function(){
             return view('blogUser.blog_contact_us');
         })->name('contact_us');

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserRegistered;
 use App\Http\Requests\CreateBlogUserRequest;
+use App\Jobs\SendEmailJob;
 use App\Models\BlogUser;
+use App\Notifications\NewUserNotification;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\RedirectResponse;
@@ -29,12 +32,6 @@ class BlogUserController extends Controller
         }
     }
     public function blogUserRegistration(CreateBlogUserRequest $request){
-        // try{
-        // $this->validate($request,[       
-        //         'username' => 'required|unique:blog_users',
-        //         'gender' => 'required',
-        //         'email' => 'required|email|unique:blog_users',
-        //         'password' => 'required|min:8']);
         if($request->image){
             $path = $request->file('image')->store('temp');
             $file = $request->file('image');
@@ -56,10 +53,9 @@ class BlogUserController extends Controller
             'img' => $fileName
         ]);
         $user->save();
+        // event(new UserRegistered($user));
+        dispatch(new SendEmailJob($user));
         return response()->json( ['success' => 'Customer registered successfully!'] );
-        // }catch(ValidationException $e){
-        //     return response()->json(['error' => $e->validator->errors(), 'message'=>"Validation Failed"]);
-        // }
     }
     use AuthenticatesUsers;
     public function logout(Request $request): RedirectResponse{
@@ -67,5 +63,9 @@ class BlogUserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('blogUser.login');
+    }
+    public function notif(){
+        $blogUser = BlogUser::find(1);
+        $user->notify(new NewUserNotification());
     }
 }

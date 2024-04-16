@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 
 class BlogUser extends Model implements Authenticatable
 {
+    use Notifiable;
     protected $table = 'blog_users';
     protected $primaryKey ='user_id';
     protected $fillable = [
