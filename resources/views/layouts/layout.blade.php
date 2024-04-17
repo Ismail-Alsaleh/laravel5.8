@@ -1,5 +1,5 @@
-@include("layouts.header")
+@include("layouts.blog_header")
 
 @yield("content")
 @stack('js-file')
-@include("layouts.footer")
+@include("layouts.blog_footer")
