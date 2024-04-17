@@ -11,4 +11,5 @@ class Comment extends Model
     protected $fillable =([
         'comment_content','post_id','user_id','accepted'
     ]);
+    // someComments
 }
