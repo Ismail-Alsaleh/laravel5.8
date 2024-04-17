@@ -69,3 +69,4 @@ class BlogUserController extends Controller
         $user->notify(new NewUserNotification());
     }
 }
+// some comment
