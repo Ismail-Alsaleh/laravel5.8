@@ -2,4 +2,4 @@
 
 @yield("content")
 @stack('js-file')
-@include("layouts.footer")
+@include('layouts.test_footer')
