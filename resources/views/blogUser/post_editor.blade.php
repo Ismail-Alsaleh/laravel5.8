@@ -27,7 +27,7 @@ if(Auth::check()){
                         <input type="text" id="title" name="title" placeholder="Title" class="w-100 border-0" required>
                         <textarea id="editor" name="editor"></textarea>
 
-                        
+                        <input type="hidden" id="" name="user_id" value="{{ $userId }}">
                         <input type="hidden" id="post_text" name="post_text" required>
                         <button type="submit" class="border-0 mb-2 bg-moroon text-white">Add New Post</button>
                     </form>
