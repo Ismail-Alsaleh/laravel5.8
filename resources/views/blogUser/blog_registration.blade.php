@@ -24,7 +24,6 @@
                         </div>
                         <input type="text" class="py-2 w-100 border-0" id="username" name="username" placeholder="Username">
                     </div>
-                    <div class=""></div>
                     <span class="username text-danger"></span>
                     @error('username')
                         <div class="alert alert-danger">{{ $message }}</div>

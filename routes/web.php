@@ -28,7 +28,11 @@ Route::name('blogUser.')->group(function(){
 
     Route::middleware('guest:blogUser')->group(function(){
         //login
+<<<<<<< HEAD
         Route::post('/Blog/login/more changes here', [BlogUserController::class, 'authenticate'])->name('login');
+=======
+        Route::post('/Blog/login/ch ch chs', [BlogUserController::class, 'authenticate'])->name('login');
+>>>>>>> master
         Route::get('/Blog/login', function(){
             return view('blogUser.blog_login');
         })->name('login');
