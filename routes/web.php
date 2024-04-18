@@ -28,7 +28,7 @@ Route::name('blogUser.')->group(function(){
 
     Route::middleware('guest:blogUser')->group(function(){
         //login
-        Route::post('/Blog/nonono', [BlogUserController::class, 'authenticate'])->name('login');
+        Route::post('/Blog/login', [BlogUserController::class, 'authenticate'])->name('login');
         Route::get('/Blog/login', function(){
             return view('blogUser.blog_login');
         })->name('login');
@@ -59,7 +59,7 @@ Route::name('blogUser.')->group(function(){
         //delete comment
         Route::get('/post_editor/deleteComment/{comment_id}',[CommentController::class, 'deleteComment'])->name('deleteComment');
         //accept comment
-        // Route::get('/post_editor/acceptComment/{comment_id}',[CommentController::class, 'acceptComment'])->name('acceptComment');
+        Route::get('/post_editor/acceptComment/{comment_id}',[CommentController::class, 'acceptComment'])->name('acceptComment');
         //blog for users
         Route::get('/Blog/posts',function(){
             $comments = CommentController::getComments();
@@ -73,6 +73,6 @@ Route::name('blogUser.')->group(function(){
             return view('blogUser.post_editor', ['comments' => $comments, 'posts' => $posts]);
         })->name('post_editor');
         //logout
-        
+        Route::get('/Blog/logout', [BlogUserController::class, 'logout'])->name('logout');
     });
 });
