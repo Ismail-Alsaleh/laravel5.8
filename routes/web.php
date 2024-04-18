@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\BlogUserController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostController;
+
+
 
 
 /*
@@ -48,7 +52,7 @@ Route::name('blogUser.')->group(function(){
         })->name('contact_us');
         //add post
         Route::post('/post_editor/addPost',[PostController::class, 'addPost'])->name('addPost');
-        //delete post
+        //delete posts
         Route::get('/post_editor/deletePost/{post_id}',[PostController::class, 'deletePost'])->name('deletePost');
         //add comment
         Route::post('/post_editor/addComment',[CommentController::class, 'addComment'])->name('addComment');
