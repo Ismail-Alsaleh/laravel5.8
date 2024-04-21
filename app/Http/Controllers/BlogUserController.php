@@ -25,10 +25,24 @@ class BlogUserController extends Controller
         $cridentials = $request->only('username','password');
         $user = BlogUser::where('username', $request['username'])->first();
         if(Auth::guard('blogUser')->attempt($cridentials)){
- 
-            return redirect()->route('blogUser.blog');
+            $user = Auth::user();
+            return response()->json([
+                    'status' => 'success',
+                    'user' => $user,
+                    'authorisation' => [
+                        'token' => $token,
+                        'type' => 'bearer',
+                    ]
+                ]);
+    
+            // return redirect()->route('blogUser.blog');
+            
         }else{
-            return back()->withErrors(['error'=>'username or password are incorrect']);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+            // return back()->withErrors(['error'=>'username or password are incorrect']);
         }
     }
     public function blogUserRegistration(CreateBlogUserRequest $request){
@@ -55,14 +69,28 @@ class BlogUserController extends Controller
         $user->save();
         // event(new UserRegistered($user));
         dispatch(new SendEmailJob($user));
-        return response()->json( ['success' => 'Customer registered successfully!'] );
+        // return response()->json( ['success' => 'Customer registered successfully!'] );
+        $token = Auth::login($user);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User created successfully',
+            'user' => $user,
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
+        ]);
     }
     use AuthenticatesUsers;
     public function logout(Request $request): RedirectResponse{
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('blogUser.login');
+        // return redirect()->route('blogUser.login');
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully logged out',
+        ]);
     }
     public function notif(){
         $blogUser = BlogUser::find(1);

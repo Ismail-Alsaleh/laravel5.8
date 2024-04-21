@@ -18,9 +18,10 @@ return [
         'passwords' => 'users',
     ],
     'blogUser' => [
-        'driver' => 'eloquent',
+        'driver' => 'jwt',
         'provider' => App\Models\BlogUser::class, 
     ],
+    
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -49,7 +50,7 @@ return [
             'hash' => false,
         ],
         'blogUser' => [
-            'driver' => 'session',
+            'driver' => 'jwt',
             'provider' => 'blog_users',
         ],
     ],
@@ -80,6 +81,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\BlogUser::class, // Use the BlogUser model for authentication
         ],
+                'api' => [
+                'driver' => 'jwt',
+                'provider' => 'users',
+        ],
+
 
         // 'users' => [
         //     'driver' => 'database',
