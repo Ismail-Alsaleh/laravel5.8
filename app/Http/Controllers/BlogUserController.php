@@ -7,6 +7,7 @@ use App\Http\Requests\CreateBlogUserRequest;
 use App\Jobs\SendEmailJob;
 use App\Models\BlogUser;
 use App\Notifications\NewUserNotification;
+use App\Services\BlogUserService;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\RedirectResponse;
@@ -21,6 +22,12 @@ use session;
 
 class BlogUserController extends Controller
 {
+
+    public function __construct(
+        BlogUserService $blogUserService
+    ){
+        $this->blogUserService = $blogUserService;
+    }
     public function authenticate(Request $request){
         $cridentials = $request->only('username','password');
         $user = BlogUser::where('username', $request['username'])->first();
@@ -45,14 +52,18 @@ class BlogUserController extends Controller
                 $fileName = 'woman.jpg';
             }
         }
-        $user = new BlogUser([
-            'username' => $request->input('username'),
-            'gender'=> $request->input('gender'),
-            'email'=> $request->input('email'),
-            'password'=> $request->input('password'),
-            'img' => $fileName
-        ]);
-        $user->save();
+        $data = $request->all();
+        $data['img'] = $fileName;
+        // return response()->json( ['success' => $data['image']] );
+        $user = $this->blogUserService->blogUserRegistration($data);
+        // $user = new BlogUser([
+        //     'username' => $request->input('username'),
+        //     'gender'=> $request->input('gender'),
+        //     'email'=> $request->input('email'),
+        //     'password'=> $request->input('password'),
+        //     'img' => $fileName
+        // ]);
+        // $user->save();
         // event(new UserRegistered($user));
         dispatch(new SendEmailJob($user));
         return response()->json( ['success' => 'Customer registered successfully!'] );
