@@ -140,8 +140,8 @@ if(Auth::check()){
                 document.getElementById('post_text').value = editorData;
             });
         </script>
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
             CKEDITOR.replace( 'editor' );
-        </script>
+        </script> -->
         @endif
 @endsection

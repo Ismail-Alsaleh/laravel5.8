@@ -62,17 +62,22 @@ Route::name('blogUser.')->group(function(){
         Route::get('/post_editor/acceptComment/{comment_id}',[CommentController::class, 'acceptComment'])->name('acceptComment');
         //blog for users
         Route::get('/Blog/posts',function(){
+            $posts = PostController::showPosts();
             $comments = CommentController::getComments();
-            $posts = PostController::getPosts();
             return view('blogUser.blog_home', ['comments' => $comments, 'posts' => $posts]);
         })->name('blog');
         //blog for admin
         Route::get('/Blog/post_editor',function(){
             $comments = CommentController::getComments();
-            $posts = PostController::getPosts();
+            $posts = PostController::showPosts();
             return view('blogUser.post_editor', ['comments' => $comments, 'posts' => $posts]);
         })->name('post_editor');
         //logout
         Route::get('/Blog/logout', [BlogUserController::class, 'logout'])->name('logout');
+
+        Route::get('Blog/show', [BlogUserController::class, 'showUsers'])->name('show');
+        // Route::get('Blog/showUsers', function(){
+        //     return view('blogUser.users_list');
+        // })->name('showUsers');
     });
 });

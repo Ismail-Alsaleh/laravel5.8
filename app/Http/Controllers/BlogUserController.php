@@ -75,9 +75,14 @@ class BlogUserController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('blogUser.login');
     }
-    public function notif(){
-        $blogUser = BlogUser::find(1);
-        $user->notify(new NewUserNotification());
+    // public function notif(){
+    //     $blogUser = BlogUser::find(1);
+    //     $user->notify(new NewUserNotification());
+    // }
+
+    public function showUsers(){
+        $users = BlogUser::get();
+        return view('blogUser.users_list',['users' => $users]);
     }
 }
 // some comment

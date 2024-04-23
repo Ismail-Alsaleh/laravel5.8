@@ -14,5 +14,8 @@ class BlogUserService {
     public function blogUserRegistration(array $data){
         return $this->blogUserRepository->blogUserRegistration($data);
     }
+    public function find($id){
+        return $this->blogUserRepository->find($id);
+    }
     
 }
