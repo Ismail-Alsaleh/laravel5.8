@@ -105,10 +105,10 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <div class="mt-1">
-                            <label for="image">Add Image</label>
+                            <label for="img">Add Image</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text"><i class="bi bi-image"></i></span>
-                                <input type="file" class="form-control" id="image" name="image" accept=".jpg,.jpeg,.png">
+                                <input type="file" class="form-control" id="img" name="img" accept=".jpg,.jpeg,.png">
                             </div>
                         </div>
                 </div>

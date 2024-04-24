@@ -68,8 +68,8 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="mt-1">
-                        <label for="image">Add Image</label>
-                        <input type="file" class="" id="image" name="image" accept=".jpg,.jpeg,.png">
+                        <label for="img">Add Image</label>
+                        <input type="file" class="" id="img" name="img" accept=".jpg,.jpeg,.png">
                     </div>
                     <button id="loginButton" type="submit" class="w-100 border-0 p-2 mt-3 text-white btn btn-primary">Register</button>
                 </form>

@@ -8,6 +8,7 @@ use App\Jobs\SendEmailJob;
 use App\Models\BlogUser;
 use App\Notifications\NewUserNotification;
 use App\Services\BlogUserService;
+use App\Traits\ImageTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\RedirectResponse;
@@ -22,6 +23,7 @@ use session;
 
 class BlogUserController extends Controller
 {
+    use ImageTrait;
 
     public function __construct(
         BlogUserService $blogUserService
@@ -39,21 +41,22 @@ class BlogUserController extends Controller
         }
     }
     public function blogUserRegistration(CreateBlogUserRequest $request){
-        if($request->image){
-            $path = $request->file('image')->store('temp');
-            $file = $request->file('image');
-            $fileName = $file->getClientOriginalName();
-            $fileName = strval($request->username) .  $fileName;
-            $file->move(public_path('images'), $fileName);
+        $data = $request->all();
+        if($request->img){
+            $data['img'] = $this->verifyAndUpload($request,'img','images');
+            // $path = $request->file('img')->store('temp');
+            // $file = $request->file('img');
+            // $fileName = $file->getClientOriginalName();
+            // $fileName = strval($request->username) .  $fileName;
+            // $file->move(public_path('images'), $fileName);
         }else{
             if($request->gender=='male'){
                 $fileName = 'man.jpg';
             }else{
                 $fileName = 'woman.jpg';
             }
+            $data['img'] = $fileName;
         }
-        $data = $request->all();
-        $data['img'] = $fileName;
         // return response()->json( ['success' => $data['image']] );
         $user = $this->blogUserService->blogUserRegistration($data);
         // $user = new BlogUser([
