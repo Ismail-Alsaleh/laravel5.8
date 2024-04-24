@@ -61,11 +61,12 @@ Route::name('blogUser.')->group(function(){
         //accept comment
         Route::get('/post_editor/acceptComment/{comment_id}',[CommentController::class, 'acceptComment'])->name('acceptComment');
         //blog for users
-        Route::get('/Blog/posts',function(){
-            $posts = PostController::showPosts();
-            $comments = CommentController::getComments();
-            return view('blogUser.blog_home', ['comments' => $comments, 'posts' => $posts]);
-        })->name('blog');
+        // Route::get('/Blog/posts',function(){
+        //     $posts = PostController::showPosts();
+        //     $comments = CommentController::getComments();
+        //     return view('blogUser.blog_home', ['comments' => $comments, 'posts' => $posts]);
+        // })->name('blog');
+        Route::get('/Blog/posts',[PostController::class, 'showPosts'])->name('blog');
         //blog for admin
         Route::get('/Blog/post_editor',function(){
             $comments = CommentController::getComments();

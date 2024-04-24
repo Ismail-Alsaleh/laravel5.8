@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\CommentController;
 use App\Http\Requests\CreatePostRequest;
 use App\Models\Post;
 use App\Repositories\PostRepositoryInterface;
@@ -19,11 +20,14 @@ class PostController extends Controller
         // $this->postService = $postService;
         $this->postRepository = $postRepository;
     }
-    public  function showPosts(){
+    public function showPosts(){
         // $posts = Post::select('posts.*','blog_users.username','blog_users.user_id','blog_users.img')->join('blog_users','blog_users.user_id','=','posts.user_id')->orderBy('posts.created_at','desc')->get();
+        $comments = CommentController::getComments();
         // $posts = $this->postService->showPosts();
-        // $posts = $this->this->postRepository->showPosts(); 
-        $posts = "mew";
+        $posts = $this->postRepository->showPosts(); 
+        // $posts = "mew";
+
+        return view('blogUser.blog_home', ['comments' => $comments, 'posts' => $posts]);
         return $posts;
     }
     // public function realPosts(){
