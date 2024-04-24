@@ -81,3 +81,61 @@ Route::name('blogUser.')->group(function(){
         // })->name('showUsers');
     });
 });
+
+Route::name('User.')->group(function(){
+
+    Route::middleware('guest:User')->group(function(){
+        //login
+        Route::post('/User/login', [UserController::class, 'authenticate'])->name('login');
+        Route::get('/User/login', function(){
+            return view('User.blog_login');
+        })->name('login');
+        //Blog Registration view
+        Route::get('/User/Register',function(){
+            return view('User.blog_registration');
+        })->name('blogRegister');
+        //Blog registration
+        Route::post('/User/blogUserRegistration', [UserController::class, 'UserRegistration'])->name('blogUserRegistration');
+        //about us
+        Route::get('/User/aboutUs', function(){
+            return view('User.blog_about_us');
+        })->name('about_us');
+        //contact us
+
+    });
+    Route::middleware('auth:User')->group(function(){
+        Route::get('/User/notify', [UserController::class, 'notif'])->name('notify');
+        Route::get('/User/contactUs', function(){
+            return view('User.blog_contact_us');
+        })->name('contact_us');
+        //add post
+        Route::post('/User_editor/addPost',[PostController::class, 'addPost'])->name('addPost');
+        //delete posts
+        Route::get('/User_editor/deletePost/{post_id}',[PostController::class, 'deletePost'])->name('deletePost');
+        //add comment
+        Route::post('/User_editor/addComment',[CommentController::class, 'addComment'])->name('addComment');
+        //delete comment
+        Route::get('/User_editor/deleteComment/{comment_id}',[CommentController::class, 'deleteComment'])->name('deleteComment');
+        //accept comment
+        Route::get('/User_editor/acceptComment/{comment_id}',[CommentController::class, 'acceptComment'])->name('acceptComment');
+        //blog for users
+        Route::get('/User/posts',function(){
+            $posts = PostController::showPosts();
+            $comments = CommentController::getComments();
+            return view('User.blog_home', ['comments' => $comments, 'posts' => $posts]);
+        })->name('blog');
+        //blog for admin
+        Route::get('/User/post_editor',function(){
+            $comments = CommentController::getComments();
+            $posts = PostController::showPosts();
+            return view('User.post_editor', ['comments' => $comments, 'posts' => $posts]);
+        })->name('post_editor');
+        //logout
+        Route::get('/User/logout', [UserController::class, 'logout'])->name('logout');
+
+        Route::get('User/show', [UserController::class, 'showUsers'])->name('show');
+        // Route::get('Blog/showUsers', function(){
+        //     return view('User.users_list');
+        // })->name('showUsers');
+    });
+});
